@@ -241,7 +241,7 @@ class User implements UserInterface, EquatableInterface
      */
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return $this->username ?? '';
     }
 
     /**
