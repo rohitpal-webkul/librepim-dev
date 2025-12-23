@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Akeneo\Pim\Enrichment\Bundle\Controller\ExternalApi;
 
+use Akeneo\Connectivity\Connection\Application\ErrorManagement\Service\CollectApiError;
 use Akeneo\Pim\Enrichment\Bundle\Event\ProductValidationErrorEvent;
 use Akeneo\Pim\Enrichment\Bundle\Event\TechnicalErrorEvent;
 use Akeneo\Pim\Enrichment\Bundle\EventSubscriber\Product\OnSave\ApiAggregatorForProductPostSaveEventSubscriber;
@@ -114,7 +115,8 @@ class ProductController
         private GetProductsWithCompletenessesInterface $getProductsWithCompletenesses,
         private SecurityFacade $security,
         private ValidatorInterface $validator,
-        private SqlFindProductUuids $findProductUuids
+        private SqlFindProductUuids $findProductUuids,
+        private CollectApiError $collectApiError
     ) {
     }
 
@@ -421,6 +423,7 @@ class ProductController
                 ]);
             }
             $this->apiAggregatorForProductPostSave->deactivate();
+            $this->collectApiError->flush();
         });
     }
 

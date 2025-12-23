@@ -75,6 +75,7 @@ services:
             - '@oro_security.security_facade'
             - '@validator'
             - '@Akeneo\Pim\Enrichment\Bundle\Storage\Sql\Product\SqlFindProductUuids'
+            - '@Akeneo\Connectivity\Connection\Application\ErrorManagement\Service\CollectApiError'
 
     Akeneo\Pim\Enrichment\Bundle\Controller\ExternalApi\GetProductByUuidController:
         public: true
